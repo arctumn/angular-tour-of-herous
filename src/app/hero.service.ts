@@ -8,6 +8,11 @@ import { HEROES } from './mock-heroes';
   providedIn: 'root'
 })
 export class HeroService {
+  getHero(id: number) {
+    const hero = HEROES.find(hero => hero.id === id)!
+    this.messageService.add(`HeroService: fetched hero id=${id}`)
+    return of(hero)
+  }
 
   constructor(
     private messageService : MessageService
