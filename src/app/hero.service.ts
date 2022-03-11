@@ -9,9 +9,9 @@ import { MessageService } from './message.service';
 })
 export class HeroService {
 
-  private heroesUrl = 'api/heroes'
+  private heroesUrl = 'https://localhost:7211/api/v1/SuperHero'
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-type': 'application/json'})
   }
   constructor(
     private messageService: MessageService,
@@ -25,8 +25,8 @@ export class HeroService {
     )
   }
   deleteHero(id: number) {
-    const url = `${this.heroesUrl}/${id}}`;
-
+    const url = `${this.heroesUrl}/${id}`;
+    console.log("value: " +id)
     return this.http.delete<Hero>(url, this.httpOptions).pipe(
       tap(_ => this.log(`deleted hero id=${id}`)),
       catchError(this.handleError<Hero>('deleteHero'))
@@ -74,7 +74,7 @@ export class HeroService {
     }
     return this
       .http
-      .get<Hero[]>(`${this.heroesUrl}/?name=${term}`)
+      .get<Hero[]>(`${this.heroesUrl}/${term}`)
       .pipe(
         tap( x => x.length ?
           this.log(`found heroes matching "${term}"`) :
