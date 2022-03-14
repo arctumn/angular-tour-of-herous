@@ -43,7 +43,7 @@ export class HeroService {
 
 
   getHero(id: number) {
-    const url = `${this.heroesUrl}/${id}`
+    const url = `${this.heroesUrl}/data/${id}`
     return this.http.get<Hero>(url).pipe(
       tap(_ => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
@@ -74,7 +74,7 @@ export class HeroService {
     }
     return this
       .http
-      .get<Hero[]>(`${this.heroesUrl}/${term}`)
+      .get<Hero[]>(`${this.heroesUrl}/data/name/${term}`)
       .pipe(
         tap( x => x.length ?
           this.log(`found heroes matching "${term}"`) :
